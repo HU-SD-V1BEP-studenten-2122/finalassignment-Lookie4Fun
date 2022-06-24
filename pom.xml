@@ -19,13 +19,13 @@
 
     <dependencies>
 
-        <!-- https://mvnrepository.com/artifact/com.azure/azure-storage-blob -->
-<!--        Deze dependency is voor persistence en optioneel-->
-<!--        <dependency>-->
-<!--            <groupId>com.azure</groupId>-->
-<!--            <artifactId>azure-storage-blob</artifactId>-->
-<!--            <version>12.16.0</version>-->
-<!--        </dependency>-->
+<!--         https://mvnrepository.com/artifact/com.azure/azure-storage-blob -->
+<!--                Deze dependency is voor persistence en optioneel-->
+                <dependency>
+                    <groupId>com.azure</groupId>
+                    <artifactId>azure-storage-blob</artifactId>
+                    <version>12.16.0</version>
+                </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

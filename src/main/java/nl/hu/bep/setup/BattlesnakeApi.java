@@ -1,9 +1,10 @@
 package nl.hu.bep.setup;
 
-import javax.ws.rs.*;
 
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 
 @Path("/bepslang")
 public class BattlesnakeApi {
@@ -11,7 +12,7 @@ public class BattlesnakeApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBattlesnake(){
-        GameInfo info = new GameInfo();
+        GameInfo info = GameInfo.getGameInfo();
 
         return Response.ok(info).build();
     }
@@ -39,8 +40,24 @@ public class BattlesnakeApi {
     @POST
     @Path("/end")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response End(){
+    public Response End(BattlesnakeRequest request){
 
+        return Response.ok().build();
+    }
+
+    @PATCH
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateSnake(String updatedSnake) throws IOException {
+        String een = updatedSnake.replace("{","");
+        String twee = een.replace("}","");
+        String[] delen = twee.split(",");
+        String color = delen[0].split(":")[1].replace('"',' ').trim();
+        String head = delen[1].split(":")[1].replace('"',' ').trim();
+        String tail = delen[2].split(":")[1].replace('"',' ').trim();
+        GameInfo.getGameInfo().setColor(color);
+        GameInfo.getGameInfo().setHead(head);
+        GameInfo.getGameInfo().setTail(tail);
         return Response.ok().build();
     }
 }

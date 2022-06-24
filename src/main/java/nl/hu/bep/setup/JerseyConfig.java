@@ -1,5 +1,7 @@
 package nl.hu.bep.setup;
 
+
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 

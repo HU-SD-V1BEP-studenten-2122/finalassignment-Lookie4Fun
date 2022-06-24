@@ -8,6 +8,15 @@ public class GameInfo {
     private String tail = "default";
     private String version = "0.0.1-beta";
 
+    private static GameInfo gameInfo = new GameInfo();
+    public static GameInfo getGameInfo() {
+        return gameInfo;
+    }
+
+    public static void setGameinfo(GameInfo info){
+        gameInfo = info;
+    }
+
     public String getApiversion() {
         return apiversion;
     }
