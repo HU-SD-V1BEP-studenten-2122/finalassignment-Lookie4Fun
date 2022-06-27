@@ -42,20 +42,20 @@ public class BattlesnakeApi {
     public Response move(BattlesnakeRequest request){
         Object locatie = request.you.get("head");
         GameLijst.getGameLijst().getHuidigeGame().setAantalBeurten(GameLijst.getGameLijst().getHuidigeGame().getAantalBeurten()+1);
-        int x = Integer. parseInt(locatie.toString().split(",")[0].replace("{","").replace("=","").replace("x","").trim());
+        int X = Integer. parseInt(locatie.toString().split(",")[0].replace("{","").replace("=","").replace("x","").trim());
         int Y = Integer. parseInt(locatie.toString().split(",")[1].replace("}","").replace("=","").replace("y","").trim());
         MoveResponse move =new MoveResponse("up","Going Up!");
-        if(x>10){
+        if(X==9 && Y==2){
+            move.setMove("left");
+        }
+        if(X==2 && Y==9){
+            move.setMove("right");
+        }
+        if(X==9 && Y==9){
             move.setMove("down");
         }
-        if(x<2){
-            move.setMove("down");
-        }
-        if(Y<2){
+        if(X==2 && Y==2){
             move.setMove("up");
-        }
-        if(Y>10){
-            move.setMove("down");
         }
 
         return Response.ok(move).build();
