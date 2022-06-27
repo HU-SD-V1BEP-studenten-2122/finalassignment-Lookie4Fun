@@ -7,7 +7,7 @@ export default class GamesService {
 
     async getReplay(id) {
         return fetch(url+ id)
-            .then(response => response.json())
+            .then(response => response.json() )
     }
 
     async removeReplay(gameId) {
