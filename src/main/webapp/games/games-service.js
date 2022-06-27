@@ -2,7 +2,7 @@ export default class GamesService {
 
     async getGameIds() {
         // //TODO: fetch alle games van de de service, idealiter zonder alle details
-        return fetch('http://localhost:8080/restservices/bepslang/allegames')
+        return fetch('https://testslang3.herokuapp.com/restservices/bepslang/allegames')
             .then(response => response.json())
 
 

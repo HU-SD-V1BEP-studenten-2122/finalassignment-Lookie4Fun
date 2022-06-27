@@ -2,13 +2,13 @@ export default class SnakeService {
 
 
     async getSnake() {
-        return fetch('http://localhost:8080/restservices/bepslang')
+        return fetch('https://testslang3.herokuapp.com/restservices/bepslang')
             .then(response => response.json())
 
     }
     async updateSnake(updatedSnake) {
         //TODO: update je slang aan de server-kant met de nieuwe gegevens
-        return fetch('http://localhost:8080/restservices/bepslang/update', {
+        return fetch('https://testslang3.herokuapp.com/restservices/bepslang/update', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
