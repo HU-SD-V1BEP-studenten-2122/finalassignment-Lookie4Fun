@@ -1,6 +1,7 @@
 package nl.hu.bep.setup.Listeners;
 
 import nl.hu.bep.setup.model.Game;
+import nl.hu.bep.setup.persistence.GameList_PersistenceManager;
 import nl.hu.bep.setup.persistence.SnakeInfo_PersistenceManager;
 import reactor.core.scheduler.Schedulers;
 import reactor.netty.http.HttpResources;
@@ -17,6 +18,7 @@ public class Listener implements ServletContextListener {
 
         try {
             SnakeInfo_PersistenceManager.loadSnake();
+            GameList_PersistenceManager.loadGamelijst();
         } catch (Exception e) {
             System.out.println("Error loading data..."+e);
             e.printStackTrace();
@@ -26,6 +28,7 @@ public class Listener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce){
         try {
             SnakeInfo_PersistenceManager.saveSnake();
+            GameList_PersistenceManager.saveGamelijst();
         } catch (Exception e) {
             System.out.println("Error saving data..."+e.toString());
             e.printStackTrace();
