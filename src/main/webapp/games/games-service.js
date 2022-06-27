@@ -1,7 +1,6 @@
 export default class GamesService {
-    url = 'https://testslang6.herokuapp.com/restservices/bepslang/'
     async getGameIds() {
-        return fetch(url+'allegames')
+        return fetch('https://testslang7.herokuapp.com/restservices/bepslang/allegames')
             .then(response => response.json())
     }
 
