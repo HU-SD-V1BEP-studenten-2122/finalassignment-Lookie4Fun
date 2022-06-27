@@ -32,7 +32,7 @@ public class GameList_PersistenceManager {
                 Object loadedObject = ois.readObject();
                 if(loadedObject instanceof GameLijst){
                     GameLijst loadedGamelijst = (GameLijst) loadedObject;
-                    GameLijst.setMijnGameLijst(loadedGamelijst);
+                    GameLijst.setGameLijst(loadedGamelijst);
                 }
 
                 baos.close();
@@ -47,7 +47,7 @@ public class GameList_PersistenceManager {
             blobContainerClient.create();
         }
         BlobClient blobClient = blobContainerClient.getBlobClient("gameslist_blob");
-        GameLijst gameLijstToSave = GameLijst.getMijnGameLijst();
+        GameLijst gameLijstToSave = GameLijst.getGameLijst();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(gameLijstToSave);

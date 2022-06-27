@@ -1,6 +1,7 @@
 package nl.hu.bep.setup.Listeners;
 
 import nl.hu.bep.setup.model.Game;
+import nl.hu.bep.setup.model.GameLijst;
 import nl.hu.bep.setup.persistence.GameList_PersistenceManager;
 import nl.hu.bep.setup.persistence.SnakeInfo_PersistenceManager;
 import reactor.core.scheduler.Schedulers;
@@ -15,10 +16,13 @@ import java.time.Duration;
 public class Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce){
+        GameLijst.getGameLijst().addGame(new Game("ding"+(GameLijst.getGameLijst().getAlleGames().size()+1),15325));
+        GameLijst.getGameLijst().addGame(new Game("ding"+(GameLijst.getGameLijst().getAlleGames().size()+1),1132));
 
         try {
             SnakeInfo_PersistenceManager.loadSnake();
             GameList_PersistenceManager.loadGamelijst();
+
         } catch (Exception e) {
             System.out.println("Error loading data..."+e);
             e.printStackTrace();

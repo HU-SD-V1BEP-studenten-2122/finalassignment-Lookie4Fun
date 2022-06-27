@@ -2,12 +2,16 @@ package nl.hu.bep.setup.webservices;
 
 import nl.hu.bep.setup.model.*;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 @Path("/bepslang")
@@ -25,9 +29,9 @@ public class BattlesnakeApi {
     @Path("/start")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response Start(){
-        Game newGame = new Game();
-        GameLijst.alleGames.add(newGame);
-        GameLijst.getMijnGameLijst().setHuidigeGame(newGame);
+        Game newGame = new Game("Game"+GameLijst.getGameLijst().getAlleGames().size()+1,0);
+        GameLijst.getGameLijst().addGame(newGame);
+        GameLijst.getGameLijst().setHuidigeGame(newGame);
         return Response.ok().build();
     }
 
@@ -36,8 +40,23 @@ public class BattlesnakeApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response move(BattlesnakeRequest request){
+        Object locatie = request.you.get("head");
 
-        System.out.println("naam: "+request.you.get("name"));
+        int x = Integer. parseInt(locatie.toString().split(",")[0].replace("{","").replace("=","").replace("x","").trim());
+        int Y = Integer. parseInt(locatie.toString().split(",")[1].replace("}","").replace("=","").replace("y","").trim());
+
+        if(x>=10){
+            MoveResponse move =new MoveResponse("down","Going down!");
+        }
+        if(x<=2){
+            MoveResponse move =new MoveResponse("down","Going down!");
+        }
+        if(Y<=2){
+            MoveResponse move =new MoveResponse("up","Going up!");
+        }
+        if(Y>=10){
+            MoveResponse move =new MoveResponse("down","Going down!");
+        }
 
         MoveResponse move =new MoveResponse("up","Going Up!");
         return Response.ok(move).build();
@@ -71,8 +90,38 @@ public class BattlesnakeApi {
     @Path("/allegames")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getGames(){
-        ArrayList<Game> lijst= GameLijst.getMijnGameLijst().getAlleGames();
+        ArrayList<String> lijst = new ArrayList<>();
+        for(Game g : GameLijst.getGameLijst().getAlleGames()){
+            lijst.add(g.getId());
+        }
         return Response.ok(lijst).build();
     }
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGameReplay(@PathParam("id") String id){
+        Game game = GameLijst.getGameLijst().getGameById(id);
 
+        JsonArrayBuilder jab = Json.createArrayBuilder();
+        JsonObjectBuilder job = Json.createObjectBuilder();
+
+        job.add("id: ",game.getId());
+        job.add("aantalBeurten: ",game.getAantalBeurten());
+        jab.add(job);
+
+        return Response.ok(jab.build().toString()).build();
+    }
+    @GET
+    @Path("/{gameid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response removeGameReplay(@PathParam("gameid") String gameid){
+        for(Game g : GameLijst.getGameLijst().getAlleGames()){
+            if(g.getId().equals(gameid)){
+                GameLijst.getGameLijst().getAlleGames().remove(g);
+                break;
+            }
+        }
+        return Response.ok().build();
+    }
 }

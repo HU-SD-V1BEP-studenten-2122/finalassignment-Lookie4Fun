@@ -1,15 +1,16 @@
 package nl.hu.bep.setup.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Game {
-    private static String id;
+public class Game implements Serializable {
+    private String id;
     private int aantalBeurten;
-    private String redenEind;
-    private int aantalBochtjesLinksaf;
 
-    public Game() {
-        this.id= "Game "+(GameLijst.alleGames.size()+1);
+
+    public Game(String id, int aantalBeurten) {
+        this.id = id;
+        this.aantalBeurten=aantalBeurten;
+
     }
 
     public String getId(){
@@ -24,19 +25,4 @@ public class Game {
         this.aantalBeurten = aantalBeurten;
     }
 
-    public String getRedenEind() {
-        return redenEind;
-    }
-
-    public void setRedenEind(String redenEind) {
-        this.redenEind = redenEind;
-    }
-
-    public int getAantalBochtjesLinksaf() {
-        return aantalBochtjesLinksaf;
-    }
-
-    public void setAantalBochtjesLinksaf(int aantalBochtjesLinksaf) {
-        this.aantalBochtjesLinksaf = aantalBochtjesLinksaf;
-    }
 }
