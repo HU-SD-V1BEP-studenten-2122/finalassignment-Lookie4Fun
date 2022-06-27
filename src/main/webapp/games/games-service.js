@@ -1,7 +1,10 @@
 export default class GamesService {
+    url = 'http://localhost:8080/restservices/bepslang/allegames'
+
     async getGameIds() {
         // //TODO: fetch alle games van de de service, idealiter zonder alle details
-        // return Promise.resolve(['dummy-1', 'dummy-2']);
+        return fetch(url)
+            .then(response => response.json())
 
 
     }

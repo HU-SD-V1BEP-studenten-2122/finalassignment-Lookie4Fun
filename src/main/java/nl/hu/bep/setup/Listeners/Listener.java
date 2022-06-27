@@ -1,5 +1,7 @@
-package nl.hu.bep.setup;
+package nl.hu.bep.setup.Listeners;
 
+import nl.hu.bep.setup.model.Game;
+import nl.hu.bep.setup.persistence.SnakeInfo_PersistenceManager;
 import reactor.core.scheduler.Schedulers;
 import reactor.netty.http.HttpResources;
 
@@ -12,9 +14,10 @@ import java.time.Duration;
 public class Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce){
-        System.out.println("CONTEXT INIT");
+
         try {
-            PersistenceManager.loadWorldFromAzure();
+            SnakeInfo_PersistenceManager.loadSnake();
+
         } catch (Exception e) {
             System.out.println("Error loading data..."+e);
             e.printStackTrace();
@@ -22,11 +25,10 @@ public class Listener implements ServletContextListener {
     }
     @Override
     public void contextDestroyed(ServletContextEvent sce){
-        System.out.println("CONTEXT DEST");
         try {
-            PersistenceManager.saveWorldToAzure();
+            SnakeInfo_PersistenceManager.saveSnake();
         } catch (Exception e) {
-            System.out.println("Error saving data..."+e);
+            System.out.println("Error saving data..."+e.toString());
             e.printStackTrace();
         }
         Schedulers.shutdownNow();

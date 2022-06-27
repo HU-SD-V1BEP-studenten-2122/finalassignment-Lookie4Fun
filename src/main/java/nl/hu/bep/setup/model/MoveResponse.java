@@ -1,4 +1,4 @@
-package nl.hu.bep.setup;
+package nl.hu.bep.setup.model;
 
 public class MoveResponse {
     private String move;

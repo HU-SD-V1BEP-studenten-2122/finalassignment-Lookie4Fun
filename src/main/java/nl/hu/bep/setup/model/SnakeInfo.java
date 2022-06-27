@@ -1,20 +1,32 @@
-package nl.hu.bep.setup;
+package nl.hu.bep.setup.model;
 
-public class GameInfo {
-    private String apiversion = "1";
-    private String author = "MyUsername";
-    private String color = "#888888";
-    private String head = "default";
-    private String tail = "default";
-    private String version = "0.0.1-beta";
+import java.io.Serializable;
 
-    private static GameInfo gameInfo = new GameInfo();
-    public static GameInfo getGameInfo() {
-        return gameInfo;
+public class SnakeInfo implements Serializable {
+    private String apiversion;
+    private String author;
+    private String color;
+    private String head;
+    private String tail;
+    private String version;
+
+    private static SnakeInfo snakeInfo = new SnakeInfo();
+
+    private SnakeInfo(){
+        this.apiversion = "1";
+        this.author = "MyUsername";
+        this.color = "#888888";
+        this.head = "default";
+        this.tail = "default";
+        this.version = "0.0.1-beta";
     }
 
-    public static void setGameinfo(GameInfo info){
-        gameInfo = info;
+    public static SnakeInfo getsnakeInfo() {
+        return snakeInfo;
+    }
+
+    public static void setsnakeinfo(SnakeInfo info){
+        snakeInfo = info;
     }
 
     public String getApiversion() {
