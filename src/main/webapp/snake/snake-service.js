@@ -1,6 +1,6 @@
 export default class SnakeService {
 
-    url = 'https://testslang4.herokuapp.com/restservices/bepslang/'
+    url = 'https://testslang6.herokuapp.com/restservices/bepslang/'
     async getSnake() {
         return fetch(url)
             .then(response => response.json() )
