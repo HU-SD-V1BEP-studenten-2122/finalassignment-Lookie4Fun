@@ -29,7 +29,7 @@ public class BattlesnakeApi {
     @Path("/start")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response Start(){
-        Game newGame = new Game("Game"+GameLijst.getGameLijst().getAlleGames().size()+1,0);
+        Game newGame = new Game("Game"+GameLijst.getGameLijst().getAlleGames().size(),0);
         GameLijst.getGameLijst().addGame(newGame);
         GameLijst.getGameLijst().setHuidigeGame(newGame);
         return Response.ok().build();
@@ -41,7 +41,7 @@ public class BattlesnakeApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response move(BattlesnakeRequest request){
         Object locatie = request.you.get("head");
-
+        GameLijst.getGameLijst().getHuidigeGame().setAantalBeurten(GameLijst.getGameLijst().getHuidigeGame().getAantalBeurten()+1);
         int x = Integer. parseInt(locatie.toString().split(",")[0].replace("{","").replace("=","").replace("x","").trim());
         int Y = Integer. parseInt(locatie.toString().split(",")[1].replace("}","").replace("=","").replace("y","").trim());
         MoveResponse move =new MoveResponse("up","Going Up!");
@@ -57,7 +57,6 @@ public class BattlesnakeApi {
         if(Y>10){
             move.setMove("down");
         }
-
 
         return Response.ok(move).build();
     }
