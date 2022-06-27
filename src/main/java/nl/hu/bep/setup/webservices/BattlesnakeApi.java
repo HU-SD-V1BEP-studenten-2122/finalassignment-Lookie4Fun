@@ -44,18 +44,19 @@ public class BattlesnakeApi {
         GameLijst.getGameLijst().getHuidigeGame().setAantalBeurten(GameLijst.getGameLijst().getHuidigeGame().getAantalBeurten()+1);
         int X = Integer. parseInt(locatie.toString().split(",")[0].replace("{","").replace("=","").replace("x","").trim());
         int Y = Integer. parseInt(locatie.toString().split(",")[1].replace("}","").replace("=","").replace("y","").trim());
-        MoveResponse move =new MoveResponse("up","Going Up!");
-        if(X==9 && Y==2){
-            move.setMove("left");
-        }
-        if(X==2 && Y==9){
-            move.setMove("right");
-        }
-        if(X==9 && Y==9){
+        MoveResponse move =new MoveResponse();
+
+        if(Y==9){
             move.setMove("down");
         }
-        if(X==2 && Y==2){
+        if(Y==1){
             move.setMove("up");
+        }
+        if(X==9){
+            move.setMove("left");
+        }
+        if(Y==9){
+            move.setMove("right");
         }
 
         return Response.ok(move).build();
