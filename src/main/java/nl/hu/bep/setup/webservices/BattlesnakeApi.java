@@ -44,21 +44,21 @@ public class BattlesnakeApi {
 
         int x = Integer. parseInt(locatie.toString().split(",")[0].replace("{","").replace("=","").replace("x","").trim());
         int Y = Integer. parseInt(locatie.toString().split(",")[1].replace("}","").replace("=","").replace("y","").trim());
-
-        if(x>=10){
-            MoveResponse move =new MoveResponse("down","Going down!");
-        }
-        if(x<=2){
-            MoveResponse move =new MoveResponse("down","Going down!");
-        }
-        if(Y<=2){
-            MoveResponse move =new MoveResponse("up","Going up!");
-        }
-        if(Y>=10){
-            MoveResponse move =new MoveResponse("down","Going down!");
-        }
-
         MoveResponse move =new MoveResponse("up","Going Up!");
+        if(x>10){
+            move.setMove("down");
+        }
+        if(x<2){
+            move.setMove("down");
+        }
+        if(Y<2){
+            move.setMove("up");
+        }
+        if(Y>10){
+            move.setMove("down");
+        }
+
+
         return Response.ok(move).build();
     }
 
