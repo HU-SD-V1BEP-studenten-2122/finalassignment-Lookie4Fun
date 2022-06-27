@@ -17,7 +17,6 @@ public class Listener implements ServletContextListener {
 
         try {
             SnakeInfo_PersistenceManager.loadSnake();
-
         } catch (Exception e) {
             System.out.println("Error loading data..."+e);
             e.printStackTrace();

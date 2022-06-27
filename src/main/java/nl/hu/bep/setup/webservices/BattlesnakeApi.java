@@ -2,15 +2,12 @@ package nl.hu.bep.setup.webservices;
 
 import nl.hu.bep.setup.model.*;
 
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 @Path("/bepslang")
@@ -30,7 +27,7 @@ public class BattlesnakeApi {
     public Response Start(){
         Game newGame = new Game();
         GameLijst.alleGames.add(newGame);
-        GameLijst.
+        GameLijst.getMijnGameLijst().setHuidigeGame(newGame);
         return Response.ok().build();
     }
 
@@ -74,8 +71,7 @@ public class BattlesnakeApi {
     @Path("/allegames")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getGames(){
-
-
+        ArrayList<Game> lijst= GameLijst.getMijnGameLijst().getAlleGames();
         return Response.ok(lijst).build();
     }
 
