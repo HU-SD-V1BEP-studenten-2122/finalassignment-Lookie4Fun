@@ -2,6 +2,8 @@ package nl.hu.bep.setup.Listeners;
 
 import nl.hu.bep.setup.model.Game;
 import nl.hu.bep.setup.model.GameLijst;
+import nl.hu.bep.setup.model.LoginUsers;
+import nl.hu.bep.setup.model.User;
 import nl.hu.bep.setup.persistence.GameList_PersistenceManager;
 import nl.hu.bep.setup.persistence.SnakeInfo_PersistenceManager;
 import reactor.core.scheduler.Schedulers;
@@ -17,9 +19,10 @@ public class Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce){
         GameLijst.getGameLijst().addGame(new Game("test"+(GameLijst.getGameLijst().getAlleGames().size()+1),0));
-
-
+        LoginUsers.getUsers().add(new User("nick","superman"));
+        LoginUsers.setHuidigeGebruiker(null);
         try {
+
             SnakeInfo_PersistenceManager.loadSnake();
             GameList_PersistenceManager.loadGamelijst();
 
