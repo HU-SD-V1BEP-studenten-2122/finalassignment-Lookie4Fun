@@ -16,8 +16,8 @@ import java.time.Duration;
 public class Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce){
-        GameLijst.getGameLijst().addGame(new Game("ding"+(GameLijst.getGameLijst().getAlleGames().size()+1),15325));
-        GameLijst.getGameLijst().addGame(new Game("ding"+(GameLijst.getGameLijst().getAlleGames().size()+1),1132));
+        GameLijst.getGameLijst().addGame(new Game("test"+(GameLijst.getGameLijst().getAlleGames().size()+1),0));
+
 
         try {
             SnakeInfo_PersistenceManager.loadSnake();

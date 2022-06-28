@@ -42,4 +42,13 @@ public class GameLijst implements Serializable {
        alleGames.add(game);
 
     }
+    public void removeGame(String gameid){
+        for (Game g : getAlleGames()){
+            if(g.getId().equals(gameid)){
+                getAlleGames().remove(g);
+                break;
+            }
+
+        }
+    }
 }

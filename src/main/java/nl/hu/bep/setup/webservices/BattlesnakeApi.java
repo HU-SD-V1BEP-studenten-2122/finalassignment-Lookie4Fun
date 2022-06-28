@@ -10,8 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
 
 
 @Path("/bepslang")
@@ -48,15 +47,23 @@ public class BattlesnakeApi {
 
         if(Y<5 && X<5){
             move.setMove("up");
+            move.setShout("Going up!");
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
         }
         if(Y>5 && X<5){
             move.setMove("right");
+            move.setShout("Going right!");
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarRechts(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarRechts()+1);
         }
         if(Y>5 && X>5){
             move.setMove("down");
+            move.setShout("Going dowmn!");
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBeneden(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBeneden()+1);
         }
         if(Y<5 && X>5){
             move.setMove("left");
+            move.setShout("Going left!");
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarLinks(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarLinks()+1);
         }
 
         return Response.ok(move).build();
@@ -106,22 +113,20 @@ public class BattlesnakeApi {
         JsonObjectBuilder job = Json.createObjectBuilder();
 
         job.add("id: ",game.getId());
-        job.add("aantalBeurten: ",game.getAantalBeurten());
+        job.add("aantal beurten: ",game.getAantalBeurten());
+        job.add("aantal keer naar rechts",game.getAantalKeerNaarRechts());
+        job.add("aantal keer naar links",game.getAantalKeerNaarLinks());
+        job.add("aantal keer naar beneden",game.getAantalKeerNaarBeneden());
+        job.add("aantal keer naar boven",game.getAantalKeerNaarBoven());
         jab.add(job);
 
         return Response.ok(jab.build().toString()).build();
     }
-    @GET
-    @Path("/{gameid}")
+    @DELETE
+    @Path("/delete/{gameid}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response removeGameReplay(@PathParam("gameid") String gameid){
-        for(Game g : GameLijst.getGameLijst().getAlleGames()){
-            if(g.getId().equals(gameid)){
-                GameLijst.getGameLijst().getAlleGames().remove(g);
-                break;
-            }
-        }
+        GameLijst.getGameLijst().removeGame(gameid);
         return Response.ok().build();
     }
 }
