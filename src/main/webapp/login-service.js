@@ -2,7 +2,7 @@ export default class LoginService {
     isLoggedIn() {
         // //TODO: hoe ga je bepalen of iemand ingelogd is (geweest)?
         // return false;
-        return fetch('https://testslang11.herokuapp.com/restservices/bepslang/login/isloggedin')
+        return fetch('https://testslang12.herokuapp.com/restservices/bepslang/login/isloggedin')
             .then(response => response.json())
 
     }
@@ -10,7 +10,7 @@ export default class LoginService {
     login(user, password) {
         //TODO: inloggen met POST
         // return Promise.resolve();
-        return fetch('https://testslang11.herokuapp.com/restservices/bepslang/login/'+user+"/"+password,{
+        return fetch('https://testslang12.herokuapp.com/restservices/bepslang/login/'+user+"/"+password,{
             method:'POST'
         }).then(response => response.json())
     }
@@ -20,7 +20,7 @@ export default class LoginService {
         // //maar het zou altijd zomaar kunnen dat je token verlopen is, of dat er server-side iets anders aan de hand is.
         // //Dus het is handig om te checken met een -echte fetch- of je login-token wel echt bruikbaar is.
         // return Promise.resolve(null);
-        return fetch('https://testslang11.herokuapp.com/restservices/bepslang/getUser')
+        return fetch('https://testslang12.herokuapp.com/restservices/bepslang/getUser')
             .then(response => response.json())
     }
 
