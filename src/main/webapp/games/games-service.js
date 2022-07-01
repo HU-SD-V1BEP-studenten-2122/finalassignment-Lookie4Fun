@@ -1,16 +1,16 @@
 export default class GamesService {
     async getGameIds() {
-        return fetch('https://testslang12.herokuapp.com/restservices/bepslang/allegames')
+        return fetch('/restservices/bepslang/allegames')
             .then(response => response.json())
     }
 
     async getReplay(id) {
-        return fetch('https://testslang12.herokuapp.com/restservices/bepslang/'+ id)
+        return fetch('/restservices/bepslang/'+ id)
             .then(response => response.json() )
     }
 
     async removeReplay(gameId) {
-        return fetch('https://testslang12.herokuapp.com/restservices/bepslang/delete/'+gameId, {
+        return fetch('/restservices/bepslang/delete/'+gameId, {
             method: 'DELETE',
             headers:{'Content-Type':'application/json'}
         }).then(response => response.json())
