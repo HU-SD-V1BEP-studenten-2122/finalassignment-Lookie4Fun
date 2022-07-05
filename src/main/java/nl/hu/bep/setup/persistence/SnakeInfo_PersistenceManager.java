@@ -9,7 +9,7 @@ import java.io.*;
 
 public class SnakeInfo_PersistenceManager {
     private final static String ENDPOINT = "https://battlesnakelookie4fun.blob.core.windows.net/";
-    private final static String SASTOKEN = "?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupitfx&se=2022-07-01T20:56:27Z&st=2022-07-01T12:56:27Z&spr=https&sig=HNawWD6nLQtW1V3MjJ%2F52sAfhP%2BElJEo5orODvOyT4k%3D";
+    private final static String SASTOKEN = "?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupitfx&se=2023-11-17T16:55:56Z&st=2022-07-05T07:55:56Z&spr=https&sig=jW6c9IVfPZz434rb%2BXCgK3rT6ZY9kVlvz2WU%2B1mLqQg%3D";
     private final static String CONTAINER = "snakeinfo";
     private static BlobContainerClient blobContainerClient = new BlobContainerClientBuilder()
             .endpoint(ENDPOINT)

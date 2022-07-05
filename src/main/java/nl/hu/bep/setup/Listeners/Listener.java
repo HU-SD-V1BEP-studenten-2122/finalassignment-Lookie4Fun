@@ -18,7 +18,6 @@ import java.time.Duration;
 public class Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce){
-        GameLijst.getGameLijst().addGame(new Game("test"+(GameLijst.getGameLijst().getAlleGames().size()+1),0));
         LoginUsers.getUsers().add(new User("nick","superman"));
         LoginUsers.setHuidigeGebruiker(null);
         try {

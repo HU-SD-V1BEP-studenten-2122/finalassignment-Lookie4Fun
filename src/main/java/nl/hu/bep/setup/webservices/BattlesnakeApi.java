@@ -56,9 +56,14 @@ public class BattlesnakeApi {
             move.setShout("Going right!");
             GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
         }
-        if(x == 10){
+        if(x == 10|| y!=10){
             move.setMove("up");
             move.setShout("Going up!");
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
+        }
+        if(x == 10|| y==10){
+            move.setMove("right");
+            move.setShout("Going right!");
             GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
         }
         if(y == 10){
