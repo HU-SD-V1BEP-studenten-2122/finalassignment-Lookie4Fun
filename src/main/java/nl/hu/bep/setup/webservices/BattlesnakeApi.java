@@ -42,29 +42,29 @@ public class BattlesnakeApi {
     public Response move(BattlesnakeRequest request){
         Object locatie = request.you.get("head");
         GameLijst.getGameLijst().getHuidigeGame().setAantalBeurten(GameLijst.getGameLijst().getHuidigeGame().getAantalBeurten()+1);
-        int X = Integer. parseInt(locatie.toString().split(",")[0].replace("{","").replace("=","").replace("x","").trim());
-        int Y = Integer. parseInt(locatie.toString().split(",")[1].replace("}","").replace("=","").replace("y","").trim());
+        int x = Integer. parseInt(locatie.toString().split(",")[0].replace("{","").replace("=","").replace("x","").trim());
+        int y = Integer. parseInt(locatie.toString().split(",")[1].replace("}","").replace("=","").replace("y","").trim());
         MoveResponse move =new MoveResponse();
 
-        if(Y<5 && X<5){
+        if(x == 0){
+            move.setMove("down");
+            move.setShout("Going down!");
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
+        }
+        if(y==0){
+            move.setMove("right");
+            move.setShout("Going right!");
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
+        }
+        if(x == 10){
             move.setMove("up");
             move.setShout("Going up!");
             GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
         }
-        if(Y>5 && X<5){
-            move.setMove("right");
-            move.setShout("Going right!");
-            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarRechts(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarRechts()+1);
-        }
-        if(Y>5 && X>5){
-            move.setMove("down");
-            move.setShout("Going dowmn!");
-            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBeneden(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBeneden()+1);
-        }
-        if(Y<5 && X>5){
+        if(y == 10){
             move.setMove("left");
             move.setShout("Going left!");
-            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarLinks(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarLinks()+1);
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
         }
 
         return Response.ok(move).build();
