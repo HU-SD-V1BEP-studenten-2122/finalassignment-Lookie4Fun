@@ -49,12 +49,12 @@ public class BattlesnakeApi {
         if(x == 0){
             move.setMove("down");
             move.setShout("Going down!");
-            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBeneden()+1);
         }
         if(y==0){
             move.setMove("right");
             move.setShout("Going right!");
-            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarRechts()+1);
         }
         if(x == 10){
             move.setMove("up");
@@ -64,12 +64,12 @@ public class BattlesnakeApi {
         if(x == 0 && y==10){
             move.setMove("down");
             move.setShout("Going down!");
-            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBeneden()+1);
         }
     if(y == 10 && x!=0){
             move.setMove("left");
             move.setShout("Going left!");
-            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
+            GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarLinks()+1);
         }
 
         return Response.ok(move).build();
