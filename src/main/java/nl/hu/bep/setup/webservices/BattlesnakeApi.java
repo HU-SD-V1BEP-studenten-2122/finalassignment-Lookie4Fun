@@ -66,7 +66,7 @@ public class BattlesnakeApi {
             move.setShout("Going down!");
             GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
         }
-        if(y == 10){
+    if(y == 10 && x!=0){
             move.setMove("left");
             move.setShout("Going left!");
             GameLijst.getGameLijst().getHuidigeGame().setAantalKeerNaarBoven(GameLijst.getGameLijst().getHuidigeGame().getAantalKeerNaarBoven()+1);
