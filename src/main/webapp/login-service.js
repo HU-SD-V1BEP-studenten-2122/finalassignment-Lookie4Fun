@@ -4,16 +4,20 @@ export default class LoginService {
         // return false;
         return fetch('/restservices/bepslang/login/isloggedin')
             .then(response => response.json())
-
     }
 
     login(user, password) {
         //TODO: inloggen met POST
         // return Promise.resolve();
-        return fetch('/restservices/bepslang/login/'+user+"/"+password,{
-            method:'POST'
-        }).then(response => response.json())
+        fetch("restservices/login/"+user+"/"+password, {method: "POST", body: jsonRequestBody})
+            .then(function (response) {
+                if(response.ok) return response.json()
+                else throw "Wrong username/password";
+            })
+            .then(myjson => window.sessionStorage.setItem("myJWT", myjson.JWT))
+            .catch(error => console.log(error));
     }
+
 
     getUser() {
         // //TODO: deze GET method test je token op server-side problemen. Je kunt client-side op zich wel 'ingelogd' zijn

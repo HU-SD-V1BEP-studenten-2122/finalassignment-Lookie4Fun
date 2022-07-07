@@ -1,5 +1,10 @@
 package nl.hu.bep.setup.webservices;
 
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.crypto.MacProvider;
+import nl.hu.bep.setup.Security.LogonRequest;
 import nl.hu.bep.setup.model.*;
 
 import javax.json.Json;
@@ -9,9 +14,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.Key;
+import java.util.*;
 
 
 @Path("/bepslang")
@@ -154,35 +158,47 @@ public class BattlesnakeApi {
     @Path("/login/isloggedin")
     @Produces(MediaType.APPLICATION_JSON)
     public Response isloggedin(){
-        Map<String, String> loggedInMessage = new HashMap<>();
-        loggedInMessage.put("SUCCESS", "u bent ingelogd");
-        return Response.ok(loggedInMessage).build();
+        return Response.ok(true).build();
     }
 
 
     @POST
-    @Path("/login/{user}/{password}")
+    @Path("/login/{user}/{pass}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response Login(@PathParam("user") String user,@PathParam("password") String password){
-        for(User u : LoginUsers.getUsers()){
-            if(u.getUsername().equals(user)&&u.getPassword().equals(password)){
-                u.setLogedin(true);
-                LoginUsers.setHuidigeGebruiker(u);
+    public Response Login(@PathParam("user") String username, @PathParam("pass") String pass){
+        try {
+            String role = User.validateLogin(username, pass);
+            if (role == null) throw new IllegalArgumentException("Geen gebruiker gevonden");
+
+            String token = createToken(username, role);
+
+            return Response.ok(new AbstractMap.SimpleEntry<>("JWT", token)).build();
+        }catch (JwtException | IllegalArgumentException e){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
             }
         }
-        return Response.ok().build();
+
+    final static public Key key = MacProvider.generateKey();
+
+    private String createToken(String username, String role) throws JwtException{
+        Calendar vervaldatum = Calendar.getInstance();
+        vervaldatum.add(Calendar.MINUTE,30);
+
+        return Jwts.builder()
+                .setSubject(username)
+                .setExpiration(vervaldatum.getTime())
+                .claim("role", role)
+                .signWith(SignatureAlgorithm.HS512, key)
+                .compact();
     }
 
     @GET
     @Path("getUser")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(){
-        boolean resp = false;
-        if(LoginUsers.getHuidigeGebruiker().isLogedin()){
-            resp=true;
-        }
-        return Response.ok(resp).build();
+
+        return Response.ok().build();
     }
 
     @POST
@@ -190,8 +206,9 @@ public class BattlesnakeApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response Logout(){
-        LoginUsers.getHuidigeGebruiker().setLogedin(false);
-        LoginUsers.setHuidigeGebruiker(null);
+
         return Response.ok().build();
     }
+
+
 }

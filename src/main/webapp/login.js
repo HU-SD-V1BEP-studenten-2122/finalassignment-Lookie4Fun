@@ -3,6 +3,10 @@
 // Uiteraard -mag- je deze files wel aanpassen, want heel fraai is deze UI nou ook weer niet:)
 
 
+import LoginService from "./login-service";
+let service = new LoginService();
+
+
 function refresh() {
     if (service.isLoggedIn()) {
         document.forms.login.style = "display:none";
